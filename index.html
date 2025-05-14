@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Tic-Tac-Toe Adventure</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/themes.css">
+</head>
+<body class="light-theme">
+  <div class="bubbles-container"></div>
+  <div class="game-container">
+    <header>
+      <h1 class="game-title">Tic-Tac-Toe Adventure</h1>
+      <div class="header-controls">
+        <button id="theme-toggle" class="btn btn-icon" aria-label="Toggle theme">
+          <span class="toggle-icon">🌙</span>
+        </button>
+         <!-- Single sound toggle button -->
+        <button id="sound-toggle" class="btn btn-icon sound-on" aria-label="Toggle sound">
+          <span class="toggle-icon">🔊</span>
+        </button>
+      </div>
+    </header>
+
+    <div id="welcome-screen" class="screen active">
+      <h2>Welcome to Tic-Tac-Toe Adventure!</h2>
+      <div class="mode-selection">
+        <h3>Select Game Mode</h3>
+        <div class="mode-buttons">
+          <button id="pvp-mode" class="btn btn-mode">Player vs Player</button>
+          <button id="pvc-mode" class="btn btn-mode">Player vs Computer</button>
+        </div>
+      </div>
+
+      <div id="player-setup" class="player-setup hidden">
+        <h3>Player Names</h3>
+        <div class="input-group">
+          <label for="player1-name">Player X</label>
+          <input type="text" id="player1-name" placeholder="Player X" maxlength="12">
+        </div>
+        <div id="player2-container" class="input-group">
+          <label for="player2-name">Player O</label>
+          <input type="text" id="player2-name" placeholder="Player O" maxlength="12">
+        </div>
+        <div id="ai-difficulty" class="difficulty-selection hidden">
+          <h3>AI Difficulty</h3>
+          <div class="difficulty-buttons">
+            <button data-difficulty="easy" class="btn btn-difficulty active">Easy</button>
+            <button data-difficulty="medium" class="btn btn-difficulty">Medium</button>
+            <button data-difficulty="hard" class="btn btn-difficulty">Hard</button>
+          </div>
+        </div>
+        <button id="start-game" class="btn btn-primary">Start Game</button>
+      </div>
+    </div>
+
+    <div id="game-screen" class="screen">
+      <div class="game-info">
+        <div id="turn-display" class="turn-display">
+          <span id="current-player">Player X</span>'s turn
+          <div id="timer" class="timer">30</div>
+        </div>
+        <button id="undo-btn" class="btn btn-secondary">Undo</button>
+      </div>
+
+      <div class="game-board">
+        <div class="cell" data-index="0"></div>
+        <div class="cell" data-index="1"></div>
+        <div class="cell" data-index="2"></div>
+        <div class="cell" data-index="3"></div>
+        <div class="cell" data-index="4"></div>
+        <div class="cell" data-index="5"></div>
+        <div class="cell" data-index="6"></div>
+        <div class="cell" data-index="7"></div>
+        <div class="cell" data-index="8"></div>
+      </div>
+
+      <div class="scoreboard">
+        <div class="score-item">
+          <div id="player-x-name" class="player-name">Player X</div>
+          <div id="player-x-score" class="score">0</div>
+        </div>
+        <div class="score-item">
+          <div class="player-name">Draws</div>
+          <div id="draw-score" class="score">0</div>
+        </div>
+        <div class="score-item">
+          <div id="player-o-name" class="player-name">Player O</div>
+          <div id="player-o-score" class="score">0</div>
+        </div>
+      </div>
+
+      <div class="game-controls">
+        <button id="restart-btn" class="btn btn-primary">Restart Game</button>
+        <button id="new-game-btn" class="btn btn-secondary">New Game</button>
+      </div>
+    </div>
+
+    <div id="result-screen" class="screen">
+      <div class="result-message">
+        <h2 id="result-text">Player X wins!</h2>
+        <div id="confetti-container" class="confetti-container"></div>
+      </div>
+      <button id="play-again" class="btn btn-primary">Play Again</button>
+      <button id="back-to-menu" class="btn btn-secondary">Back to Menu</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <footer>
+    <p>Created with ❤️ in 2025</p>
+  </footer>
+ <audio id="background-music" src="https://cdn.pixabay.com/download/audio/2025/04/28/audio_8b53d9b3fe.mp3?filename=energetic-upbeat-background-music-333747.mp3" loop></audio>
+<script>
+  // Get references to the audio element and sound toggle button
+  const audio = document.getElementById('background-music');
+  const soundToggle = document.getElementById('sound-toggle');
+
+  // Start playing the audio automatically when the page loads
+  window.addEventListener('load', () => {
+    audio.play();
+    soundToggle.classList.add('sound-on'); // Ensure the button starts in "sound-on" mode
+    soundToggle.innerHTML = '<span class="toggle-icon">🔊</span>'; // Set the icon to "sound-on"
+  });
+
+  // Toggle sound on/off when the sound button is clicked
+  soundToggle.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play(); // Play the audio
+      soundToggle.classList.add('sound-on');
+      soundToggle.classList.remove('sound-off');
+      soundToggle.innerHTML = '<span class="toggle-icon">🔊</span>'; // Update the icon to "sound-on"
+    } else {
+      audio.pause(); // Pause the audio
+      soundToggle.classList.add('sound-off');
+      soundToggle.classList.remove('sound-on');
+      soundToggle.innerHTML = '<span class="toggle-icon">🔇</span>'; // Update the icon to "sound-off"
+    }
+  });
+</script>
+    </script>
+  <script src="js/storage.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/board.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

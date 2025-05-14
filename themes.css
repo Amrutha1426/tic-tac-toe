@@ -1,0 +1,70 @@
+/* Theme Variables */
+:root {
+  --primary-rgb: 255, 107, 107;
+  --secondary-rgb: 78, 205, 196;
+  --accent-rgb: 255, 230, 109;
+}
+
+/* Light Theme (Default) */
+.light-theme {
+  --bg-color: #f7f7f7;
+  --text-color: #2c3e50;
+  --card-bg: #ffffff;
+  --cell-bg: rgba(255, 255, 255, 0.9);
+  --cell-hover: rgba(255, 255, 255, 0.8);
+  --border-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Theme */
+.dark-theme {
+  --bg-color: #2c3e50;
+  --text-color: #f7f7f7;
+  --card-bg: #34495e;
+  --cell-bg: rgba(52, 73, 94, 0.9);
+  --cell-hover: rgba(52, 73, 94, 0.8);
+  --border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-theme .game-title {
+  text-shadow: 2px 2px 0px #1a2530;
+}
+
+.dark-theme .btn-icon {
+  background-color: #34495e;
+  color: #f7f7f7;
+}
+
+.dark-theme .btn-mode,
+.dark-theme .btn-difficulty {
+  background-color: #34495e;
+  color: #f7f7f7;
+}
+
+.dark-theme .btn-mode.active,
+.dark-theme .btn-difficulty.active {
+  background-color: var(--accent);
+  color: #2c3e50;
+}
+
+.dark-theme .toggle-icon {
+  color: #f7f7f7;
+}
+
+/* Theme Toggle */
+#theme-toggle .toggle-icon {
+  transition: transform 0.5s ease;
+}
+
+.dark-theme #theme-toggle .toggle-icon {
+  transform: rotate(360deg);
+  content: '☀️';
+}
+
+/* Sound Toggle */
+.sound-on .toggle-icon::after {
+  content: '🔊';
+}
+
+.sound-off .toggle-icon::after {
+  content: '🔇';
+}
